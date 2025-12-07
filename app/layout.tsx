@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import Navbar from "./components/Navbar";
 
 const inter = Inter({
   subsets: ["latin"],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-mono", 
 });
 
 export const metadata: Metadata = {
@@ -18,9 +25,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
-        <Providers>{children}</Providers>
+    <html lang="en" className={ibmPlexMono.variable}>
+      <body className={`${ibmPlexMono.className} antialiased`}>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );
