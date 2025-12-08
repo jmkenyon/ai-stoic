@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { Providers } from "./providers";
+import { Providers } from "./providers/SessionProvider";
 import Navbar from "./components/Navbar";
+import { ToastProvider } from "./providers/ToasterProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en" className={ibmPlexMono.variable}>
       <body className={`${ibmPlexMono.className} antialiased`}>
         <Providers>
+        <ToastProvider />
           <Navbar />
           {children}
         </Providers>

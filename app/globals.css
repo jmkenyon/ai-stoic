@@ -121,7 +121,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-input, textarea {
-  caret-color: white; 
-}
