@@ -18,7 +18,9 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
+
 const Page = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter()
   const { handleSubmit, register } = useForm<FieldValues>({
     defaultValues: {
@@ -28,7 +30,7 @@ const Page = () => {
     },
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true)
     axios
@@ -57,7 +59,7 @@ const Page = () => {
   return (
     <section className="flex flex-col h-screen bg-primary text-white pt-40 items-center">
       <div className="min-w-md">
-        <form     onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <FieldGroup className="flex flex-col">
             <FieldSet className="">
               <FieldLegend className="font-bold text-center">
@@ -69,7 +71,7 @@ const Page = () => {
               <FieldGroup >
                 <Field>
                   <FieldLabel htmlFor="name">
-                    What should we call you?
+                    Name
                   </FieldLabel>
                   <Input
                     type="text"

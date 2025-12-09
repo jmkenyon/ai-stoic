@@ -1,36 +1,31 @@
-import { Button } from "@/components/ui/button";
+"use client";
+
 import Link from "next/link";
+import NavButtons from "./NavButtons";
+import { Button } from "@/components/ui/button";
+import { MenuIcon } from "lucide-react";
+import { useState } from "react";
+import NavbarSidebar from "./NavbarSidebar";
 
 const Navbar = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <nav className="flex flex-row bg-primary justify-between border-b-2  border-white items-center ">
-      <Link href="/" className="pl-6 flex items-center">
-        <span className="text-lg text-white font-semibold">Stoic AI</span>
+    <nav className="flex flex-row bg-primary justify-between border-b-2 h-15 border-white items-center ">
+      <NavbarSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} />
+      <Link href="/" className="flex h-full">
+        <span className="flex items-center text-lg text-white font-semibold border-r-2 border-white px-12">
+          Stoic AI
+        </span>
       </Link>
-      <div>
+      <NavButtons />
+      <div className="flex md:hidden items-center h-full justify-center">
         <Button
-          asChild
-          variant="outline"
-          className="
-                border-l-2 border-t-0 border-b-0 border-r-0 px-12 h-15 rounded-none bg-primary text-white
-            transition-colors text-lg font-monostoic hover:bg-white hover:text-primary
-                "
+          variant="ghost"
+          className="size-14 border-transparent h-full text-white"
+          onClick={() => setIsSidebarOpen(true)}
         >
-          <Link prefetch href="/login">
-            Login
-          </Link>
-        </Button>
-        <Button
-          asChild
-          variant="outline"
-          className="
-                border-l-2 border-t-0 border-b-0 border-r-0 px-12 h-15 rounded-none bg-primary text-white
-                transition-colors text-lg font-monostoic hover:bg-white hover:text-primary
-                "
-        >
-          <Link prefetch href="/signup">
-            Sign up
-          </Link>
+          <MenuIcon/>
         </Button>
       </div>
     </nav>

@@ -1,12 +1,24 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <main className="bg-[#F4A261] min-h-screen text-white flex flex-col items-center p-30">
-      <h1 className="font-bold text-7xl">Your stoic companion</h1>
-      <section>
-      <h2>The best life planner</h2>
-      <h3>Trusted by 1000s</h3>
-      <h3>AI-powered features</h3>
-      <h3>Tailored to you</h3>
+    <main className="bg-primary min-h-screen text-white flex md:flex-row flex-col pt-30 pl-30">
+      <section className="flex flex-col items-center max-w-[50%]">
+        <h1 className="font-bold text-7xl pb-10">Your stoic companion</h1>
+
+        <h2>Ready to become the best version of yourself?</h2>
+        <h2>Sign up today!</h2>
+
+ 
+       
+
+      </section>
+      <section className="md:pt-40 pt-10 md:pl-15">
+
+        <h2 className="font-bold">What&apos;s included?</h2>
+        <h3>AI-intergrated journal</h3>
+        <h3>Habit forming calender</h3>
+        <h3>Inspiring newsletter and blog</h3> 
       </section>
     </main>
   );
