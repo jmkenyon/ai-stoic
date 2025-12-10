@@ -15,11 +15,19 @@ import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import CalendarPage from "./Calender";
+import { cn } from "@/lib/utils";
 
 export const Journal = () => {
   const [aiResponse, setAiResponse] = useState<string | null>(null);
+  const [showCalendar, setShowCalendar] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const targetRef = useRef<HTMLDivElement | null>(null);
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setShowCalendar(false);
+    setAiResponse(null);
+  };
 
   const { register, handleSubmit } = useForm<FieldValues>({
     defaultValues: {
@@ -63,8 +71,11 @@ export const Journal = () => {
     }
   };
   return (
-    <section className="flex flex-col min-h-screen bg-primary text-white pt-20 items-center">
-      <form className="min-w-md" onSubmit={handleSubmit(onSubmit)}>
+    <section>
+      <form
+        className={cn("min-w-md", showCalendar ? "hidden" : "")}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <FieldGroup className="flex flex-col">
           <FieldSet className="">
             <FieldLegend className="font-bold text-center">
@@ -88,17 +99,23 @@ export const Journal = () => {
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal" className="justify-center">
-            <Button variant={"outline"} type="submit">
-              {isLoading ? "Loading..." : "Submit"}
-            </Button>
+            {aiResponse ? (
+              <Button variant={"outline"} onClick={() => setShowCalendar(true)}>
+                Hide
+              </Button>
+            ) : (
+              <Button variant={"outline"} type="submit">
+                {isLoading ? "Loading..." : "Submit"}
+              </Button>
+            )}
           </Field>
         </FieldGroup>
       </form>
       <div className="w-full max-w-3xl my-6">
-      {aiResponse && (
-  <div
-    ref={targetRef}
-    className="
+        {aiResponse && !showCalendar && (
+          <div
+            ref={targetRef}
+            className="
       mt-8
       w-full max-w-3xl
 
@@ -108,16 +125,17 @@ export const Journal = () => {
       shadow-lg
       backdrop-blur
     "
-  >
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-
-    >
-      {aiResponse}
-    </ReactMarkdown>
-  </div>
-)}
+          >
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {aiResponse}
+            </ReactMarkdown>
+          </div>
+        )}
       </div>
+      <CalendarPage
+        showCalendar={showCalendar}
+        onDateSelect={handleDateSelect}
+      />
     </section>
   );
 };

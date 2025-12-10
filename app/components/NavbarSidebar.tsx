@@ -16,6 +16,7 @@ interface Props {
 const NavbarSidebar = ({ open, onOpenChange }: Props) => {
   const { data } = useSession();
 
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="p-0 transition-none">
